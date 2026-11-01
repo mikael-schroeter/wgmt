@@ -53,7 +53,7 @@ function Recruiting() {
       <Heading>Heute im Recruiting</Heading>
       <Panel className="divide-y divide-line">
         {TEAM_STEPS.map((s) => (
-          <CounterRow key={s.key} label={s.label} value={day[s.key] ?? 0} digits={2} onBump={(d) => bump(date, s.key, d)} />
+          <CounterRow key={s.key} label={s.label} value={day[s.key] ?? 0} onBump={(d) => bump(date, s.key, d)} />
         ))}
       </Panel>
 

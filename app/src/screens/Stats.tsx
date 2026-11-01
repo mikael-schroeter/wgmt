@@ -102,7 +102,7 @@ function Funnel({ t }: { t: Totals }) {
             <div className="flex items-center gap-3">
               <span className="w-28 shrink-0 text-[15px] font-medium">{s.label}</span>
               <div className="h-7 flex-1 overflow-hidden rounded-md bg-chalk">
-                <div className={`h-full rounded-md ${i === 3 ? 'bg-volt' : 'bg-drum'}`} style={{ width: `${Math.max(2, (s.v / max) * 100)}%` }} />
+                <div className={`h-full rounded-md ${i === 3 ? 'bg-volt' : 'bg-ink'}`} style={{ width: `${Math.max(2, (s.v / max) * 100)}%` }} />
               </div>
               <span className="num w-14 text-right text-[22px] font-semibold">{fmtNum(s.v)}</span>
             </div>
@@ -145,7 +145,7 @@ function WeeklyChart({ year, current }: { year: number; current: WeekKey }) {
               >
                 {r.target ? <span aria-hidden className="absolute inset-x-0 border-t-2 border-dashed border-ink-3" style={{ bottom: (r.target / max) * H }} /> : null}
                 <span
-                  className={`w-full rounded-t-[4px] ${r.w === current ? 'bg-volt' : reached ? 'bg-ok' : 'bg-drum'}`}
+                  className={`w-full rounded-t-[4px] ${r.w === current ? 'bg-volt' : reached ? 'bg-ok' : 'bg-ink'}`}
                   style={{ height: Math.max(r.netto > 0 ? 3 : 1, h) }}
                 />
               </button>

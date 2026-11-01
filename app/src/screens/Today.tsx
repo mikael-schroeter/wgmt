@@ -71,7 +71,6 @@ export function Today() {
             hint={q.euroProStunde != null ? `${fmtEur(q.euroProStunde)} pro Stunde` : 'in halben Stunden'}
             value={day.hours ?? 0}
             step={0.5}
-            digits={3}
             decimal
             onBump={(d) => bump(date, 'hours', d)}
           />

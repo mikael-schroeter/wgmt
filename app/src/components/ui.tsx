@@ -3,48 +3,22 @@ import { ChevronLeft, ChevronRight, Minus, Plus } from 'lucide-react'
 import type { Light } from '../lib/calc'
 import { parseNum, toInput } from '../lib/format'
 
-/* ------------------------------------------------------------------ Zählwerk */
+/* ------------------------------------------------------------------ Zahl */
 
-/**
- * Ziffernrollen wie am Stromzähler. Die letzte Stelle ist rot hinterlegt –
- * so wie die Nachkommarolle am echten Zähler.
- */
-export function Meter({ value, digits = 3, size = 'md', label, decimal }: { value: number; digits?: number; size?: 'sm' | 'md' | 'lg'; label?: string; decimal?: boolean }) {
+/** Große, ruhige Zahl für die Zähler. Bei `decimal` mit einer Nachkommastelle (Stunden). */
+export function Meter({ value, label, decimal }: { value: number; label?: string; decimal?: boolean }) {
   const v = Math.max(0, value)
-  const int = Math.floor(v + 1e-9)
-  // Bei `decimal` ist die rote Rolle die Nachkommastelle (wie am echten Zähler), sonst die Einerstelle.
-  const intStr = String(int)
-  const cells = decimal
-    ? [...intStr.padStart(digits - 1, '0').split(''), String(Math.round((v - int) * 10) % 10)]
-    : intStr.padStart(digits, '0').split('')
-  const sigFrom = decimal ? cells.length - 1 - intStr.length : cells.length - intStr.length
+  const text = decimal ? v.toLocaleString('de-DE', { maximumFractionDigits: 1 }) : String(Math.floor(v))
   const prev = useRef(v)
   const dir = v >= prev.current ? 'roll-up' : 'roll-down'
   useEffect(() => { prev.current = v }, [v])
-  const cell = size === 'lg' ? 'w-9 h-13 text-[40px]' : size === 'sm' ? 'w-5 h-7 text-[20px]' : 'w-[26px] h-10 text-[28px]'
-  const spoken = decimal ? v.toLocaleString('de-DE') : String(int)
   return (
     <span
       role="img"
-      aria-label={`${label ? label + ': ' : ''}${spoken}`}
-      className="inline-flex shrink-0 items-stretch gap-[2px] rounded-md bg-drum p-[3px] shadow-[inset_0_1px_0_rgba(255,255,255,.08)]"
+      aria-label={`${label ? label + ': ' : ''}${text}`}
+      className={`num inline-block min-w-[3.25rem] shrink-0 overflow-hidden text-right text-[36px] font-bold leading-none ${v === 0 ? 'text-ink-3/50' : 'text-ink'}`}
     >
-      {cells.map((ch, i) => {
-        const last = i === cells.length - 1
-        const dim = !last && i < sigFrom && !(decimal && int === 0 && i === cells.length - 2)
-        return (
-          <span
-            key={i}
-            className={`num relative grid place-items-center overflow-hidden rounded-[3px] font-semibold leading-none ${cell} ${
-              last ? 'bg-tick text-white' : dim ? 'bg-drum-2 text-white/25' : 'bg-drum-2 text-white'
-            }`}
-          >
-            <span key={`${ch}-${v}`} className={dim ? '' : dir}>{ch}</span>
-            <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black/35 to-transparent" />
-            <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/35 to-transparent" />
-          </span>
-        )
-      })}
+      <span key={text} className={`inline-block ${dir}`}>{text}</span>
     </span>
   )
 }
@@ -52,14 +26,13 @@ export function Meter({ value, digits = 3, size = 'md', label, decimal }: { valu
 /* ------------------------------------------------------------------ Zähler-Zeile */
 
 export function CounterRow({
-  label, hint, value, onBump, step = 1, digits = 3, decimal,
+  label, hint, value, onBump, step = 1, decimal,
 }: {
   label: string
   hint?: ReactNode
   value: number
   onBump: (delta: number) => void
   step?: number
-  digits?: number
   decimal?: boolean
 }) {
   const vibrate = () => { try { navigator.vibrate?.(8) } catch { /* nicht unterstützt */ } }
@@ -69,7 +42,7 @@ export function CounterRow({
         <div className="text-[16px] font-semibold leading-tight">{label}</div>
         {hint && <div className="mt-0.5 text-[13px] leading-tight text-ink-3">{hint}</div>}
       </div>
-      <Meter value={value} digits={digits} label={label} decimal={decimal} />
+      <Meter value={value} label={label} decimal={decimal} />
       <button
         type="button"
         aria-label={`${label} minus ${step}`}

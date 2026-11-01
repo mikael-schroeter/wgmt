@@ -7,7 +7,7 @@ Sie bildet die Tabelle **„2026 VP Tracking Vorlage V3“** ab und ergänzt, wa
 
 | Bereich | Inhalt | Entspricht in der Tabelle |
 |---|---|---|
-| **Heute** | Zähler mit großen +/–-Tasten für Klingeln, Entscheider, Abrechnungen, Kunden, Zähler, Stunden. Provision D2D und abseits D2D, Netto, Notiz | Tageszeile „Eigenumsatz“ |
+| **Heute** | Große Zahlen mit +/–-Tasten für Klingeln, Entscheider, Abrechnungen, Kunden, Zähler, Stunden. Provision D2D und abseits D2D, Netto, Notiz | Tageszeile „Eigenumsatz“ |
 | **Woche** | Wochenergebnis gegen Ziel mit Ampel (<80 % rot, 80–99 % gelb, ≥100 % grün), Storno-Quote, Netto, Tagesliste | Zeilen „Wochenergebnis“ und „Target“ |
 | **Quoten** | Trichter Klingeln → Entscheider → Abrechnungen → Kunden → Zähler, Effizienz (€/h, Klingeln/h, Zähler/Kunde …), Netto pro Woche, Jahresziel | neu |
 | **Team** | Teamaufbau (gepitcht → terminiert → präsentiert → VP registriert → Folgetermin 1), Wochenziele, Monate (VPs, Aufträge). „Mein Team“: Wochensummen deiner VPs | Blatt „Teamumsatz“ |
