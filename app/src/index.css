@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Barlow", system-ui, sans-serif;
+  --font-cond: "Barlow Condensed", "Arial Narrow", sans-serif;
+
+  /* Kreide: heller, kühler Grund – draußen in der Sonne gut lesbar */
+  --color-chalk: #EEF1EE;
+  --color-paper: #FFFFFF;
+  /* Tinte: tiefes Grün-Schwarz für Text */
+  --color-ink: #17231D;
+  --color-ink-2: #46544C;
+  --color-ink-3: #6B7870;
+  --color-line: #D5DBD6;
+  /* Zählwerk: Gehäuse und Ziffernrollen */
+  --color-drum: #1A211E;
+  --color-drum-2: #2A332F;
+  --color-tick: #C23A32;
+  /* Signalgelb: Strom – die eine Akzentfarbe */
+  --color-volt: #F5C400;
+  --color-volt-soft: #FFF3B8;
+  /* Ampel */
+  --color-ok: #1C8049;
+  --color-ok-soft: #DCF1E3;
+  --color-warn: #9A6A00;
+  --color-warn-soft: #FCEFC7;
+  --color-bad: #B8332B;
+  --color-bad-soft: #F8DEDB;
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-chalk text-ink font-sans antialiased;
+    font-size: 16px;
+    line-height: 1.45;
+    overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  input, textarea, button { font: inherit; color: inherit; }
+  :focus-visible { outline: 3px solid var(--color-ink); outline-offset: 2px; border-radius: 6px; }
+  .num { font-family: var(--font-cond); font-variant-numeric: tabular-nums; }
+}
+
+@keyframes roll-in {
+  from { transform: translateY(-55%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes roll-in-down {
+  from { transform: translateY(55%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.roll-up { animation: roll-in 180ms cubic-bezier(.2,.8,.2,1); }
+.roll-down { animation: roll-in-down 180ms cubic-bezier(.2,.8,.2,1); }
+
+@keyframes press { 50% { transform: scale(.94); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .roll-up, .roll-down { animation: none; }
+  * { transition-duration: 0ms !important; }
+}
+
+.pt-safe { padding-top: max(env(safe-area-inset-top), 0px); }
+.pb-safe { padding-bottom: env(safe-area-inset-bottom); }

@@ -1,0 +1,10 @@
+{
+  "name": "Zählwerk – D2D Tracking",
+  "short_name": "Zählwerk",
+  "lang": "de",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#EEF1EE",
+  "theme_color": "#17231D",
+  "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
